@@ -26,20 +26,21 @@ export class Component {
 
   [RENDER_TO_DOM](range) {
     this._range = range;
-    this.render()[RENDER_TO_DOM](range);
+    this._vdom = this.vdom; // 缓存当前 vdom
+    this._vdom[RENDER_TO_DOM](range);
   }
 
-  rerender() {
-    let oldRange = this._range;
+  // rerender() {
+  //   let oldRange = this._range;
 
-    let range = document.createRange();
-    range.setStart(oldRange.startContainer, oldRange.startOffset);
-    range.setEnd(oldRange.startContainer, oldRange.startOffset);
-    this[RENDER_TO_DOM](range);
+  //   let range = document.createRange();
+  //   range.setStart(oldRange.startContainer, oldRange.startOffset);
+  //   range.setEnd(oldRange.startContainer, oldRange.startOffset);
+  //   this[RENDER_TO_DOM](range);
 
-    oldRange.setStart(range.endContainer, range.endOffset);
-    oldRange.deleteContents();
-  }
+  //   oldRange.setStart(range.endContainer, range.endOffset);
+  //   oldRange.deleteContents();
+  // }
 
   setState(newState) {
     if (this.state === null || typeof this.state !== "object") {
